@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"github.com/guillechuma/url-shortener-app/internal/url"
 	"html/template"
 	"net/http"
 	"strings"
@@ -22,9 +23,10 @@ func Shorten(w http.ResponseWriter, r *http.Request) {
 		originalURL = "https://" + originalURL
 	}
 
-	// shorten the URL.
+	shortURL := url.Shorten(originalURL)
+
 	data := map[string]string{
-		"ShortURL": originalURL,
+		"ShortURL": shortURL,
 	}
 
 	t, err := template.ParseFiles("internal/views/shorten.html")
